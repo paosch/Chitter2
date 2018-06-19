@@ -1,5 +1,8 @@
+require 'pg'
 class Chitter
   def self.all
-    ["hi, what's up?", "bored at home, you?"]
+    connection = PG.connect(dbname: 'chitter_manager')
+    result = connection.exec("SELECT * FROM chitter")
+    result.map { |m| m['message'] }
   end
 end

@@ -1,9 +1,10 @@
 require 'sinatra/base'
+require './lib/chitter'
 
-class Chitter2 < Sinatra::Base
+class ChitterManager < Sinatra::Base
   get '/messages' do
-    messages = [ "hi, what's up", "busy at work, you?"]
-    messages.join
+    @messages = Chitter.all
+    erb :index
   end
 
   run! if app_file == $0

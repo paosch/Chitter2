@@ -4,7 +4,7 @@ feature 'viewing messages' do
     connection.exec("INSERT INTO chitter VALUES(1, 'hola a todos');")
     connection.exec("INSERT INTO chitter VALUES(2, 'que pasaaaa');")
 
-    visit('/messages')
+    visit('/')
     expect(page).to have_content 'hola a todos'
     expect(page).to have_content 'que pasaaaa'
   end

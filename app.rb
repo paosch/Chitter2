@@ -2,20 +2,18 @@ require 'sinatra/base'
 require './lib/chitter'
 
 class ChitterManager < Sinatra::Base
-  get '/messages' do
+  get '/' do
     @messages = Chitter.all
     erb :index
   end
 
-  get '/messages/new' do
+  get '/new' do
     erb :new_message
   end
 
-  post '/messages' do
-    message = params['message']
-    connection = PG.connect(dbname: 'chitter_manager_test')
-    connection.exec("INSERT INTO chitter (message) VALUES('#{message}')")
-    redirect '/messages'
+  post '/' do
+    Chitter.create(message: params['message'])
+    redirect '/'
   end
   run! if app_file == $0
 end

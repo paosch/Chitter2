@@ -1,6 +1,6 @@
 # Chitter2 #
 
-A program written with Somayeh and Alfie to practise building a Sinatra web application.
+A Twitter clone, written to practise building a test-driven Sinatra web application.
 
 ### Specifications ###
 
@@ -12,3 +12,20 @@ A program written with Somayeh and Alfie to practise building a Sinatra web appl
 - Tag bookmarks into categories
 - Filter bookmarks by tag
 - Users manage their bookmarks
+
+
+### Technologies ###
+Ruby 2.4.1
+Sinatra
+RSpec / Capybara
+PostgreSQL
+TablePlus
+
+
+### How to run the code and tests ###
+To run the code:
+ - run ```bundle install```
+ - run ```ruby app.rb```  
+ - visit the localhost page in your browser
+
+To see the tests, run ```rspec```

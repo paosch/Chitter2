@@ -47,7 +47,7 @@ I want to sign up for Chitter
 ### How to run the code and tests ###
 To run the code:
  - ```bundle install```
- - ```ruby app.rb```  
+ - ```ruby app.rb``` or ```rackup```
  - visit the localhost page in your browser
 
 To see the tests, run ```rspec```

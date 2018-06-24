@@ -1,22 +1,30 @@
 require 'pg'
 class Chitter
+  attr_reader :id, :message
+  def initialize(id, message)
+    @id = id
+    @message = message
+  end
+  def ==(other)
+    @id == other.id
+  end
   def self.all
-    if ENV['ENVIRONMENT'] = 'test'
+    if ENV['ENVIRONMENT'] == 'test'
       connection = PG.connect(dbname: 'chitter_manager_test')
     else
       connection = PG.connect(dbname: 'chitter_manager')
     end
-    result = connection.exec("SELECT * FROM chitter")
-    result.map { |m| m['message'] }
+    result = connection.exec('SELECT * FROM chitter')
+    result.map { |m| Chitter.new(m['id'], m['message']) }
   end
   def self.create(options)
-    if ENV['ENVIRONMENT'] = 'test'
+    if ENV['ENVIRONMENT'] == 'test'
       connection = PG.connect(dbname: 'chitter_manager_test')
     else
       connection = PG.connect(dbname: 'chitter_manager')
     end
-    result = connection.exec("INSERT INTO chitter (message) VALUES('#{options[:message]}')")
-    result.map { |m| m['message'] }
+    result = connection.exec("INSERT INTO chitter (message) VALUES('#{options[:message]}') RETURNING id, message")
+    Chitter.new(result.first['id'], result.first['message'])
   end
 
 end

@@ -15,5 +15,12 @@ class ChitterManager < Sinatra::Base
     Chitter.create(message: params['message'])
     redirect '/'
   end
-  run! if app_file == $0
+
+  post '/delete' do
+    puts "#{params} are here"
+    Chitter.delete(params['id'])
+    redirect '/'
+  end
+
+run! if app_file == $0
 end

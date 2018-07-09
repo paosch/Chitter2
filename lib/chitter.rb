@@ -32,7 +32,6 @@ class Chitter
     else
       connection = PG.connect(dbname: 'chitter_manager')
     end
-    puts "this is the #{id}"
     connection.exec("DELETE FROM chitter WHERE id = #{id}")
   end
 end

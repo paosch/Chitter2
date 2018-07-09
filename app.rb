@@ -17,7 +17,6 @@ class ChitterManager < Sinatra::Base
   end
 
   post '/delete' do
-    puts "#{params} are here"
     Chitter.delete(params['id'])
     redirect '/'
   end

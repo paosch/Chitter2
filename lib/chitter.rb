@@ -26,5 +26,20 @@ class Chitter
     result = connection.exec("INSERT INTO chitter (message) VALUES('#{options[:message]}') RETURNING id, message")
     Chitter.new(result.first['id'], result.first['message'])
   end
-
+  def self.delete(id)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'chitter_manager_test')
+    else
+      connection = PG.connect(dbname: 'chitter_manager')
+    end
+    connection.exec("DELETE FROM chitter WHERE id = #{id}")
+  end
+  def self.update(id, params)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'chitter_manager_test')
+    else
+      connection = PG.connect(dbname: 'chitter_manager')
+    end
+    connection.exec("UPDATE chitter SET message ='#{params}' WHERE id = #{id}")
+  end
 end

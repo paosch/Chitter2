@@ -1,5 +1,15 @@
 <ul>
   <% @messages.each do |m| %>
-    <li><%= m.message %></li>
+    <li id="<%= m.id %>">
+      <%= m.message %>
+      <form action="/delete" method="post">
+        <input type='hidden' name='id' value='<%= m.id %>'/>
+        <input type="submit" value="Delete"/>
+      </form>
+      <form action='/update/<%= m.id %>' method="get">
+      <input type="hidden" value='<%= m.id %>' name="id">
+      <input type="submit" value="Edit">
+    </form>
+    </li>
   <% end %>
 </ul>

@@ -29,4 +29,12 @@ describe Chitter do
       expect(messages).not_to include 'hola'
     end
   end
+  describe '.update' do
+    it 'the user can edit a message' do
+      Chitter.create(message: 'hola')
+      Chitter.update(1, 'holaaa')
+      messages = Chitter.all
+      expect(messages).to include 'holaaa'
+    end
+  end
 end

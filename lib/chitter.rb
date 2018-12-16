@@ -34,4 +34,12 @@ class Chitter
     end
     connection.exec("DELETE FROM chitter WHERE id = #{id}")
   end
+  def self.update(id, params)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'chitter_manager_test')
+    else
+      connection = PG.connect(dbname: 'chitter_manager')
+    end
+    connection.exec("UPDATE chitter SET message ='#{params}' WHERE id = #{id}")
+  end
 end

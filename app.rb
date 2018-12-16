@@ -2,6 +2,7 @@ require 'sinatra/base'
 require './lib/chitter'
 
 class ChitterManager < Sinatra::Base
+  enable :sessions
   get '/' do
     @messages = Chitter.all
     erb :index
@@ -18,6 +19,16 @@ class ChitterManager < Sinatra::Base
 
   post '/delete' do
     Chitter.delete(params['id'])
+    redirect '/'
+  end
+
+  get '/update/:id' do
+    session[:id] = params['id']
+    erb :update_message
+  end
+
+  post '/update' do
+    Chitter.update(session[:id], params[:message])
     redirect '/'
   end
 
